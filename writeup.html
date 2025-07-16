@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meta-Kaggle Hackathon</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div class="sidenav">
+    <a class="external-link" href="https://www.kaggle.com/code/stevensio/kaggle-journeys-cohorts-and-competition-shifts" target="_blank">View on Kaggle</a>
+    <a href="#intro">Introduction</a>
+    <a href="#part1">Part 1: Time Series Overview</a>
+    <a href="#part2">Part 2: Cohort Study</a>
+    <a href="#part3">Part 3: Cross-Sectional Analysis</a>
+    <a href="#conclusion">Conclusion</a>
+    <a href="#recommendations">Recommendations</a>
+</div>
+
+
+<div class="content">
+    <h1 id="intro">Introduction</h1>
+
+    <p>This analysis explores how Kaggle competition participation has evolved, both overall and by user cohorts. You can view the complete analysis on <a href="https://www.kaggle.com/code/stevensio/kaggle-journeys-cohorts-and-competition-shifts" target="_blank">Kaggle Notebooks.</a> I first looked at the historical count of final team submissions, breaking it down by competition segment, accelerator usage, team size, and medal outcomes, along with trends in engagement scores.</p>
+
+    <p> I then applied a retrospective cohort analysis, grouping users by the year they joined their first competition (focusing on the 2019, 2020, 2023, and 2024 cohorts). This helped track shifts in behavior: competition preferences, dropout patterns, performance tiers, accelerator usage, team sizes, and time gaps between competitions. To complement this, I conducted a cross-sectional analysis of 2021–2024 submissions using Empirical Cumulative Distribution Function (ECDF) plots to examine how team size, competition segment, medal outcomes, and accelerator usage impact submission timing.</p>
+
+    <p><strong>The time series</strong> shows that submission counts have grown, mainly driven by Playground competitions, alongside rising entry-level GPU adoption and a shift toward solo participation. Engagement scores have generally increased, though the adjusted engagement score remains stable and still favors higher-tier users. </p>
+
+    <p><strong>From the cohort study</strong>, while most users still compete only once, a smaller group returns, improves, and moves up the tiers. However, recent cohorts behave differently from 2019–2020: they're more likely to compete solo, favor Playground competitions, have shorter gaps between competitions, and increasingly use entry GPUs over high-end hardware. The ECDF also shows a higher tendency to submit their final versions earlier.</p>
+
+    <p><strong>The cross-sectional ECDF analysis</strong> reveals consistent patterns across years: bigger teams, medalists, accelerator users, and Research/Featured participants submit later, while solo teams, non-medalists, Playground participants, and even some high-tier solo users submit earlier.</p>
+
+    <p>Overall, Kaggle's user base is becoming more independent, casual, and faster-paced, possibly driven by more efficient workflows or by the impact of GenAI tools post-2019. Future studies could explore how these emerging patterns, especially among this year’s users, impact competition performance, dropout rates, and segment preferences in their next few competitions.</p>
+
+   <p><strong>Analysis Overview:</strong></p>
+
+    <p><strong>Part 1: Time Series Overview: Submissions & Engagement</strong><br>
+    - <em>Trends in submission counts and engagement over time.</em></p>
+
+    <p><strong>Part 2: A Cohort Study of The Competitive Journey and Recent Trends</strong><br>
+    - <em>Tracks submission pacing, gaps between competitions, and shifting behaviors across cohorts.</em></p>
+
+    <p><strong>Part 3: Cross-Sectional Analysis of Final Submission Timing</strong><br>
+    - <em>ECDF analysis of when teams submit, based on team size, accelerators, medal outcomes, and competition type.</em></p>
+
+</div>
+
+<div class="content">
+    <h1 id="part1">Part 1: Time Series Overview: Submissions & Engagement</h1>
+
+        <p>In this section, I will provide an overview of competition submissions and their kernel engagement over time. Submission counts reflect only the final version of each kernel submitted before the competition deadline. I also break down submission activity by user cohorts, where each cohort consists of users who completed their first competition in the same year.</p>
+
+        <p>Engagement is measured by the sum of upvotes and comments per user view. An adjusted engagement score is also included, where the number of views is log-scaled to dampen the effect of inflated view counts. This adjustment helps highlight kernels that receive relatively few upvotes or comments despite high visibility.</p>
+
+
+        <h2>Time Series Chart of Final Submissions By Attributes</h2>
+
+        <p>The time series chart <strong>(Figure 1)</strong> shows a huge boom in final submission counts in 2023 and remains at a steady level ever since. This growth is driven mainly by Playground competitions, with Featured competitions showing a more recent upward trend. In contrast, Research competitions stayed flat, aside from a dip in 2020, likely tied to COVID-19 disruptions.</p>
+
+        <p>Entry-level GPU usage also increased starting in late 2022, with gradual growth since. Around the same time, there was a clear rise in solo team participation, pointing to a broader shift toward more individual-driven competition formats.</p>
+
+        <p><em>Note that the numbers shown represent the 60-day moving average instead of the raw count on a single day; this helps smooth out short-term fluctuations for clearer trend visibility.</em></p>
+
+        <iframe src="./output/figure1.html" height="600px"></iframe>
+
+
+
+        <h2>Competition Participation Cycle of Users by Cohorts</h2>
+
+        <p>When analyzing final submissions by user cohorts - grouped by their first competition year <strong>(Figure 2)</strong>, a clear lifecycle pattern could be seen. Most cohorts tend to ramp up participation, peak mid-year, and then gradually decline over time.</p>
+
+        <p>From 2022 to 2024, the peak moving average submission counts increased steadily, reaching a high of roughly 14 in January 2024. However, for the 2025 cohort, the current peak sits around 9 and has been declining since May, suggesting a possible slowdown in participation momentum this year.</p>
+
+        <iframe src="./output/figure2.html" height="500px"></iframe>
+
+
+        <h2>Engagement Levels Over Time by Performance Tier</h2>
+        <p>Now let’s look at engagement scores of submissions based on user tiers. To prevent skill bias from teams, the chart below <strong>(Figure 3)</strong> includes only kernel submissions from solo teams. This ensures each submission is attributed to a single user and their performance tier, making comparisons more meaningful.</p>
+        <p>Kernel engagement scores have shown a strong upward trend since 2020, with submissions from Experts recently achieving the highest moving average. However, when using the adjusted engagement score <strong>(Figure 4)</strong>, a clearer pattern emerges: engagement levels follow the Kaggle performance tier hierarchy, where Grandmasters consistently lead (10 or higher), followed by Masters (5–10), then Experts (below 5).</p>
+        <p><em>Note:</em> All references to performance tier in this analysis reflect each user’s current highest overall tier.</p>
+        <iframe src="./output/figure3.html" height="500px"></iframe>
+        <iframe src="./output/figure4.html" height="500px"></iframe>
+
+    <h2>Engagement Levels Over Time by Competition Segments</h2>
+        <p><strong>Figure 5</strong> shows that submission counts have been climbing steadily since 2020, with the Playground segment leading the growth. Featured and Research competitions have had similar engagement levels over time, but a clear gap has opened up between them and Playground in recent years.</p>
+        <p>However, when we look at the adjusted engagement score in <strong>Figure 6</strong>, Research and Featured kernels consistently score higher than Playground. This suggests that while Playground competitions get a lot more views, they don’t necessarily generate more meaningful engagement such as upvotes and comments.</p>
+        <iframe src="./output/figure5.html" height="500px"></iframe>
+        <iframe src="./output/figure6.html" height="500px"></iframe>
+</div>
+
+<div class="content">
+    <h1 id="part2">Part 2: A Cohort Study of The Competitive Journey and Recent Trends</h1>
+        <p>In this part, I implemented a retrospective cohort approach to analyze user behavior based on the year of their first competition entry, focusing on the 2019, 2020, 2023, and 2024 cohorts. This approach gives us a clearer view of how user engagement evolves, instead of just looking at the community as one big pool.</p>
+
+        <h2>Overview of How Participation Changes as Users Gain Experience</h2>
+        <p><strong>Figure 7</strong> shows how many users completed the n<sup>th</sup> competition in 2015 or later, broken down by competition segments (only includes Playground, Featured, and Research).</p>
+        <p>Data clearly shows that most users stop competing on Kaggle after their first competition. Although the rate of drop-off is notably high during the first several competitions, it gradually declines and begins to stabilize beyond the seventh competition. The bottom plot shows the proportion of competition segments joined on the n-th competition; the proportions are mostly consistent overall with a greater preference for Featured competitions.</p>
+        <p><strong>Note:</strong></p>
+        <ul>
+            <li><em>“Competitions Completed”</em> refers to the number of competitions in which a Kaggle user submitted a kernel before the competition’s submission deadline.</li>
+            <li><em>"Number of participants"</em> does not represent the number of teams, it represents all unique individuals within all teams participating in any of the competitions from the segments specified.</li>
+            <li>The whole analysis does not include users who had never participated in any competitions.</li>
+        </ul>
+        <iframe src="./output/figure7.html" height="700px"></iframe>
+        <p>Secondly, by looking at Kagglers grouped by their current highest performance tier overall <strong>(Figure 8)</strong>, we see that the proportion of high-tier participants increases with the number of competitions completed. In other words, <strong>today’s</strong> Experts, Masters, and Grandmasters tend to have completed more competitions than those in lower tiers. The next normalized histogram shows this clearly <strong>(Figure 9)</strong>: up to 80% of current unranked Kagglers have competed in only one competition, while more than 40% of Experts, Masters, and Grandmasters have entered multiple competitions.</p>
+        <p><strong>Note:</strong></p>
+        <ul>
+            <li>The performance tier shown in this analysis represents each user’s highest overall tier and is not limited to Competition tier alone. As a result, some Experts or even Grandmasters with only one competition may have earned their title through other tracks such as Notebooks, Datasets, or Code.</li>
+        </ul>
+        <iframe src="./output/figure8.html" height="700px"></iframe>
+        <iframe src="./output/figure9.html" height="500px"></iframe>
+
+        <h2>Competition Participation and Tier Progression by Cohorts</h2>
+        <p>Let’s examine how users from different <strong>cohorts (defined by the year they entered their first competition)</strong> have progressed in terms of participation and current performance tier <strong>(Figure 10)</strong>. The distribution of tiers across competition counts mirrors earlier trends: users who compete more tend to reach higher tiers, and those who started earlier are more likely to have become Grandmasters.</p>
+        <p><strong>Figure 11</strong> further supports this by showing a Normalized Count Heatmap of user cohorts by current performance tier. Notably, the majority of current Masters and Grandmasters began competing as early as 2015, with another peak for Masters in 2021 and for Grandmasters in 2020. In contrast, the majority of current Experts and Unranked entered in 2024. This trend highlights that reaching higher tiers like Grandmaster typically requires long-term engagement, whereas lower tiers such as Expert can be achieved more quickly, though still often over multiple years.</p>
+        <iframe src="./output/figure10.html" height="800px"></iframe>
+        <iframe src="./output/figure11.html" height="500px"></iframe>
+
+        <h2>Shifts in Competition Preferences: From Research to Playground</h2>
+        <p><strong>Figure 12</strong> below shows that <strong>the 2019 and 2021 cohort group</strong> initially favored Featured and Research competitions. Over time, many who started in 2019 gradually shifted toward more advanced research problems, while those who started in 2020 often began with Research or Featured competitions but then moved to easier Playground competitions in subsequent entries.</p>
+        <p><strong>For the 2023 and 2024 cohort</strong>, with the rise of LLMs and AI-assisted coding, far fewer newcomers started with Research competitions at all. Instead, around 50% of newcomers chose Playground competitions for their first, reflecting a influx of less-experienced users drawn in by the support of AI tools or access to more high-quality online courses. Although 2024 saw roughly 23% more new participants, these users had higher dropout rates after each competition when compared to users starting in 2023, suggesting many were quickly overwhelmed and failed to stay engaged beyond their first few competitions.</p>
+        <p>Based on the earlier chart of performance tier distribution, it’s clear that high-tier users are the ones who stay active across many competitions. However, this chart shows that once dominated by research-oriented challengers, Kagglers have increasingly tilted toward Playground competitions as the default training ground. This also suggests that many top-tier users increasingly rely on alternative paths to reach their current overall performance tier, such as contributing datasets and notebooks, since Playground competitions generally don’t award medals or points and therefore don’t contribute directly to tier progression. The rapid emergence of new ML techniques may also support this trend, as Playground contests offer a flexible platform for broad experimentation rather than deep specialization in competitions such as Research or Featured.</p>
+        <iframe src="./output/figure12.html" height="800px"></iframe>
+
+        <h2>Trends in Team Collaboration</h2>
+        <p><strong>Figure 13</strong> below shows that across all cohorts, users are more likely to join teams in their first competition but increasingly compete solo as they gain experience. However, there's a noticeable shift when comparing the 2019-2020 cohorts to those from 2023-2024: in 2019-2020, at least 15% of users still joined small teams in their second competition, whereas in 2023-2024, that number drops below 10% and even lower for subsequent competitions. This suggests that newer users are transitioning to solo competition earlier than before.</p>  
+        <p>The reason for this shift isn't entirely clear, but some patterns stand out. The normalized count heatmap <strong>(Figure 14)</strong> shows that for final submissions in 2019, 2020, 2023, and 2024, the majority of medal-winning kernel submissions came from non-solo teams, a trend that has been consistent since 2017.</p>
+        <p>Additionally, larger teams consistently submit later in competition timelines, suggesting they utilize more of the available time, and also due to greater coordination overhead. This is explored further in a later section.</p>  
+        <p>Overall, these trends suggest a need to either address the barriers to team collaboration or better support the emerging preference for solo participation.</p>
+        <iframe src="./output/figure13.html" height="800px"></iframe>
+        <iframe src="./output/figure14.html" height="350px"></iframe>
+
+        <h2>Accelerator Usage Trend</h2>
+
+        <p><strong>Figure 15</strong> below shows which accelerators were used in the cohorts' n-th competition. Competitors who began their <strong>first competition in 2019 or 2020</strong> relied more on high-end accelerators like P100s and A100s during their first 10 competitions, indicating a preference for compute-heavy tasks. In contrast, those starting in <strong>2023 or 2024</strong> show a noticeable decline in accelerator usage both relatively and absolutely, with more relying on no accelerator at all. However, usage of entry-level GPUs is growing within the 2024 cohort.</p>
+        
+        <p>This shift may reflect a move toward more efficient modeling practices that reduce the need for powerful hardware, a lack of technical expertise with high-end accelerators among newer users, or simply a preference for tasks requiring less computational power.</p>
+        <iframe src="./output/figure15.html" height="800px"></iframe>
+
+        <h2>Trends in Time Usage Between Competitions</h2>
+        <h3>Kaggle’s Top Users Spend More Time In-Between Competitions</h3>
+        <p><strong>Figures 16.1 and 16.2</strong> show the median and mean time gaps (in days) between competitions for overall competitors, grouped by their current performance tier as of 2025. The data reveals that competitors in higher tiers tend to take longer breaks between competitions, especially after their first one.</p>
+        <p>These time gaps are generally right-skewed, as the mean is consistently higher than the median. For all tiers except Unranked, the gaps generally shrink with more competition experience, stabilizing at around 30–50 median days or 100–150 mean days between submissions over the next few competitions.</p>
+        <iframe src="./output/figure16_1.html" height="450px"></iframe>
+        <iframe src="./output/figure16_2.html" height="450px"></iframe>
+        <p><strong>Figures 17.1 and 17.2</strong> break these competitors down by cohort. Competitors from the 2019–2020 cohorts show much larger and clearer time gaps between tier groups observed both in terms of median and mean days. In contrast, the 2023–2024 cohorts have shorter and more compressed time gaps across all tiers.</p>
+        <p>This suggests competitors starting from 2023 have either become much more efficient in participating and completing competitions, or that the rate of new competitions has increased compared to previous years, leading to more frequent participation.</p>
+        <iframe src="./output/figure17_1.html" height="600px"></iframe>
+        <iframe src="./output/figure17_2.html" height="600px"></iframe>
+</div>
+
+<div class="content">
+    <h1 id="part3">Part 3: Distribution Analysis: Time to Final Submission</h1>
+        <p>To better understand how much time each <strong>team</strong> (Solo/Non-Solo) spends on competitions submitted in recent years, I created an Empirical Cumulative Distribution Function (ECDF) plot to visualize the cumulative proportion of final kernel submissions over the course of each competition (measured as a percentage of competition duration). <strong>Figure 18</strong>, for example, shows the overall time spent by teams based on their final medal awarded. This can be interpreted as the probability of completing a competition before a given point in time, conditional on a specific factor (e.g., team size, segment, or hardware used).</p>
+        <p>Because competitions vary in length, I standardized the time variable as the percentage of days used relative to the total competition duration.</p>
+        <strong>Definitions:</strong>
+        <ul>
+            <li><em>Competition Duration</em>: Measured as days from competition enabled date to competition deadline date.</li>
+            <li><em>Days used to complete the competition</em>: Measured as days from competition enabled date to last submission date.</li>
+            <li><em>Percentage of Competition Duration Used</em>: Computed as the percentage of days taken to complete the competition relative to Competition Duration: Days taken to complete the competition / Competition Duration.</li>
+        </ul>
+        <iframe src="./output/figure18.html" height="500px"></iframe>
+
+        <p><strong>To interpret the ECDF plot:</strong> the y-axis represents the cumulative proportion of a final submission occurring at or before the percentage of competition duration shown on the x-axis.</p>
+        <p>At the right end of the x-axis (the competition deadline), you’ll notice that the cumulative proportion for each tier jumps vertically. This happens because all remaining submissions made exactly at the deadline are included there. The height of this final jump reflects the proportion of submissions made by teams who waited until the last moment to submit. For example, roughly 50% of all teams awarded Gold made their final submission just before the competition deadline (around 99% of the total duration). The remaining 50% submitted exactly at 100%, right at the deadline date.</p>
+        <p>By looking at the curvature of the plot, it shows that teams with no medals have a near-linear curve, meaning there is a consistent rate of final submissions made throughout the competition timeline, and they usually submitted before reaching the end of the deadline. In contrast, the slowest teams were the more successful ones, with a higher rate of final submissions made near the end of the competition.</p>  
+
+        <h2>Time to Submission by Cohorts</h2>
+        <p>When comparing time to submission across cohorts based on their first three competitions, the ECDF plot <strong>(Figure 19)</strong> shows that the curves for more recent cohorts (2023–2024) are slightly steeper compared to those from 2019 and 2020. This suggests that newer cohorts are submitting a bit earlier, or at least are less inclined to wait until the very last moment compared to earlier cohorts.</p>
+        <iframe src="./output/figure19.html" height="500px"></iframe>
+
+        <h2>Cross-Sectional Distribution Analysis by Submission Year</h2>
+        <p>The following figures break down the distribution of final submissions by the <strong>year of submission (2021 to 2024), rather than by user cohort</strong>. By analyzing each year separately, we can see how factors like competition segment, team size, and accelerator usage influence when teams tend to submit.</p>
+        <p>This helps reveal whether certain behaviors or strategies have become more or less common over time.</p>
+        <h3>Competition Segment On Time to Submission:</h3>
+        <p>Submission timing patterns have remained fairly consistent across the past four years <strong>(Figure 20)</strong>. Playground competitions show the steepest and most consistently rising ECDF curves, indicating faster and steadier submission rates.</p>
+        <p>In contrast, Featured and Research competitions have slightly flatter curves early on, with varying degrees of mid-competition submission speed year to year, likely reflecting differences in difficulty or the level of commitment required each year.</p>
+        <iframe src="./output/figure20.html" height="650px"></iframe>
+
+        <h2>Current Performance Tier On Time to Submission:</h2>
+
+        <p>To avoid bias from mixed-tier teams when analyzing submission timing by performance tier, this part includes only submissions from solo teams. By looking at the curvature of the functions conditional on different tier groups <strong>(Figure 21)</strong>, some distinct submission behaviour is observed:</p>  
+        <ul>
+            <li><strong>Current Masters and Grandmasters</strong> have a much steeper curve in the beginning of their competition, and slow down gradually mid-way or near the end of the competition. This pattern is consistent even in submissions from three years ago and suggests many submit well before the deadline, likely reflecting experience, good preparation, and a strong head start.</li>
+            <li><strong>Experts</strong> show a steady, almost linear increase throughout the competition duration, implying a consistent rate of final submissions. Their curve still ends nearly at the same point, but their pacing is more uniform compared to higher tiers.</li>
+            <li><strong>Unranked Kagglers</strong> have the slowest curve in the beginning and accelerate mid-way to catch up on other tier groups, likely due to inexperience or a lack of early preparation to submit as quickly as other tier groups.</li>
+        </ul>
+        <iframe src="./output/figure21.html" height="650px"></iframe>
+
+        <h2>Team Size On Time to Submission:</h2>  
+        <p>Submission timing by team size <strong>(Figure 22)</strong> follows a consistent pattern across most submission years. Around 80% of solo competitors tend to submit before the last day of the competition, compared to roughly 60% for small teams (2–3 members) and 50% for larger teams (4+ members). However, trends for large teams in all years remain slightly uncertain due to limited data.</p> 
+        <p>The overall pattern suggests that bigger teams often utilize more of the available competition time than solo teams, likely due to greater coordination overhead and barriers in forming teams in general. This may help explain why solo teams have always been the majority and continue to grow, as working in larger teams can often slow down progress and lead to more last-minute submissions.</p>
+        <iframe src="./output/figure22.html" height="650px"></iframe>
+
+        <h2>Accelerator Usage on Time to Submission:</h2>
+        <p>Submission timing patterns vary quite a lot by accelerator type and year as seen in <strong>Figure 23</strong>. The ECDF curves for TPU users from 2022 to 2024 are jagged due to limited and inconsistent usage. In contrast, entry-level GPU usage became more widespread starting in 2022, reflected by smoother, more stable curves year by year. Notably, 2024 and 2022 TPU users appeared to submit earlier than the same type of users in the previous year in general, suggesting a higher time-efficiency for TPU users in those years, though data for those groups are still quite limited.</p>
+        <p>Teams that did not use any accelerators generally submitted earlier than those using entry-level or high-end GPUs, which is expected since tasks requiring accelerators tend to be more compute-heavy. Interestingly, TPU users submitted ahead of all other groups in 2022 and 2024 but were the slowest in 2023.</p>
+        <iframe src="./output/figure23.html" height="650px"></iframe>
+        
+        <h2>Medal Outcome on Time to Submission:</h2>
+        <p><strong>Figure 24</strong> shows an interesting pattern among medalists that clearly sets them apart: most medal-winning participants tend to use nearly the entire duration of the competition before making their final submission, regardless of medal type or year.</p>
+        <p>In contrast, non-medalists typically submit much earlier, often well before the competition deadline. This suggests that taking more time correlates with better outcomes, possibly due to extended periods spent on model tuning or strategy planning.</p>
+         <iframe src="./output/figure24.html" height="650px"></iframe>
+       
+    <h1 id="conclusion">Conclusion</h1>
+        <p>This analysis highlights a clear evolution in how Kaggle users approach competitions. Participation has grown overall, but with distinct shifts in behavior: more users are competing solo, favoring Playground competitions, adopting entry-level GPUs, and submitting earlier. Meanwhile, medalists, teams competing in challenging competitions, and larger teams still consistently prefer to optimize their time and resources by submitting closer to deadlines.</p>
+        <p>These changes point to a rising trend of faster, more casual competition dynamics, potentially influenced by GenAI tools and maturing workflows. Understanding these patterns is crucial for Kaggle to adapt its platform, whether to encourage more sustained engagement, support team collaborations, or design competitions that align with these new participation styles.</p>
+
+    <h1 id="recommendations">Recommendations</h1>
+        <p>To adapt to the growing trend of solo participation, Kaggle could consider making team collaboration more attractive, especially for newcomers, by introducing features like team matchmaking, mentorship programs, or bonus incentives for team-based submissions. For the growing segment of casual and fast-paced competitors, shorter, time-bound challenges or mini-competitions could better align with their preferences and engagement style. Additionally, Kaggle should actively monitor the influence of GenAI tools, as they appear to be accelerating participation cycles and changing how users approach competitions.</p>
+        <p>To sustain long-term engagement, Kaggle could implement programs that reward continuous participation and progression, helping prevent dropouts after the first competition. Since Playground competitions are the most popular entry point, Kaggle might also develop clearer pathways or progression frameworks that encourage users to transition into more advanced Research or Featured competitions, keeping them challenged and engaged.</p>
+        <p>Future studies could explore how these recent patterns, especially among this year’s users, impact competition performance, dropout rates, and segment preferences in their next few competitions.</p>
+
+</div>
+
+</body>
+</html>
+
