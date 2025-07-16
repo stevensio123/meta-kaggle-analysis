@@ -22,6 +22,14 @@ p {
     font-size: 14px;
 }
 
+ul {
+    font-size: 12px;    
+    color: #212529;     
+    text-align: justify;
+    padding-left: 20px;
+    margin: 0;
+}
+
 strong {
     color: #000;
 }
